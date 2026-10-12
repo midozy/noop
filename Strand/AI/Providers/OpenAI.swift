@@ -111,6 +111,7 @@ struct OpenAIClient: AIProviderClient {
 
         var req = URLRequest(url: AIProvider.openAI.endpoint)
         req.httpMethod = "POST"
+        req.timeoutInterval = 300   // reasoning models (GPT-5) can sit silent >60s before the first byte
         req.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONSerialization.data(withJSONObject: body)
